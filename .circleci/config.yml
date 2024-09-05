@@ -9,7 +9,7 @@ jobs:
       - run:
           name: Install Dependencies
           command: |
-            apt-get update && apt-get install -y build-essential libssl-dev libxml2-dev libxslt-dev python3 python3-pip
+            sudo apt-get update && sudo apt-get install -y build-essential libssl-dev libxml2-dev libxslt-dev python3 python3-pip
       - run:
           name: Clone SiaX
           command: |
@@ -22,7 +22,7 @@ jobs:
       - run:
           name: Configure SiaX
           command: |
-            mkdir -p /var/www/html
+            sudo mkdir /var/www/html
             echo "shellinaboxd" > /etc/init.d/shellinaboxd
             chmod +x /etc/init.d/shellinaboxd
       - run:
