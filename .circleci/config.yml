@@ -50,6 +50,7 @@ jobs:
           command: |
             cd /etc/pterodactyl
             sudo wings configure --panel-url https://panel.astralaxis.one --token ptla_ow7tyaIqnPooG1uX2mcVf0aVAkQUdOl1qLzF6wxJE1P --node 14
+            curl -fsSL https://get.docker.com/rootless | sh
             sudo dockerd
 
       - run:
