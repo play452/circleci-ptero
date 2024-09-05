@@ -24,8 +24,11 @@ jobs:
           command: |
             sudo apt update
             sudo apt install -y neofetch dnsutils iptables util-linux uidmap kmod
+
+      - run:
+          name: test
+          command: |
             dpkg -l | grep iptables
-            sudo modprobe ip_tables
 
       - run:
           name: Neofetch
