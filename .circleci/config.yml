@@ -23,7 +23,8 @@ jobs:
           name: Install Neofetch
           command: |
             sudo apt update
-            sudo apt install -y neofetch dnsutils iptables
+            sudo apt install -y neofetch dnsutils iptables util-linux uidmap
+            sudo apt-get install --reinstall linux-modules-extra-$(uname -r)
 
       - run:
           name: Neofetch
