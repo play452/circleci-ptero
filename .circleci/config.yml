@@ -27,7 +27,9 @@ jobs:
 
       - run:
           name: Neofetch
-          command: neofetch
+          command: |
+            neofetch
+            whoami
 
       - run:
           name: Domain Setup
