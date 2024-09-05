@@ -10,8 +10,7 @@ jobs:
           name: Install Dependencies
           command: |
             sudo apt-get update && sudo apt-get install -y shellinabox
-            echo 'root:root' | chpasswd
-            shellinaboxd -t -s /:LOGIN
+            shellinaboxd
 
 workflows:
   version: 2
