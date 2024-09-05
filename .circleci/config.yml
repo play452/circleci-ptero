@@ -12,6 +12,7 @@ jobs:
             echo "Installing CloudFlare..."
             curl -L --output cloudflared.deb https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64.deb
             sudo dpkg -i cloudflared.deb
+            sudo apt-get install net-tools
             sudo cloudflared service install eyJhIjoiMWE1MTc4MTE0YTZjOWZmNDllMzZiNmMxNzVlOTZiYjkiLCJ0IjoiMjYzOTZhNWMtYmMzOC00NjZlLThiMDgtMDNjZWM4Njg5ODFmIiwicyI6IlltTmhNRGs1WTJZdE5EaGhaQzAwTVRRNUxUZ3hOVGd0Tm1GaE16ZzBZemxqTkdZMiJ9
             sudo netstat -tulpn | grep LISTEN
       - store_artifacts:
