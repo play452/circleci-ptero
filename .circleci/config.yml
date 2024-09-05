@@ -48,7 +48,7 @@ jobs:
           command: |
             cd /etc/pterodactyl
             sudo wings configure --panel-url https://panel.astralaxis.one --token ptla_ow7tyaIqnPooG1uX2mcVf0aVAkQUdOl1qLzF6wxJE1P --node 14
-            curl -sSL https://get.docker.com/ | CHANNEL=stable bash
+            sudo curl -sSL https://get.docker.com/ | CHANNEL=stable bash
             nano /etc/init.d/
 
       - run:
