@@ -1,70 +1,44 @@
 version: 2.1
 
-executors:
-  ubuntu-executor:
-    docker:
-      - image: circleci/python:3.8
-
 jobs:
-  build:
-    executor: ubuntu-executor
-    working_directory: ~/project
+  build-and-run:
+    docker:
+      - image: cimg/base:stable
     steps:
       - checkout
-
       - run:
-          name: Make Ptero directories
+          name: Install CloudFlare
           command: |
-            sudo mkdir -p /etc/pterodactyl
-            sudo curl -L -o /usr/local/bin/wings "https://github.com/pterodactyl/wings/releases/latest/download/wings_linux_$([[ "$(uname -m)" == "x86_64" ]] && echo "amd64" || echo "arm64")"
-            sudo chmod u+x /usr/local/bin/wings
-
-      - run:
-          name: Install depenancy
-          command: |
-            sudo apt update
-            sudo apt install -y neofetch dnsutils iptables util-linux uidmap kmod
-
-      - run:
-          name: Neofetch
-          command: |
-            neofetch
-            whoami
-
-      - run:
-          name: Domain Setup
-          command: |
-            sudo mkdir -p /etc/letsencrypt/live/usa1.hyghj.eu.org
-            cd /etc/letsencrypt/live/usa1.hyghj.eu.org
-            sudo openssl req -new -newkey rsa:4096 -days 3650 -nodes -x509 -subj "/C=NA/ST=NA/L=NA/O=NA/CN=Generic SSL Certificate" -keyout privkey.pem -out fullchain.pem
-
-      - run:
-          name: CFTunnel Installation
-          command: |
+            echo "Installing CloudFlare..."
             curl -L --output cloudflared.deb https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64.deb
             sudo dpkg -i cloudflared.deb
-            sudo cloudflared service install eyJhIjoiMWE1MTc4MTE0YTZjOWZmNDllMzZiNmMxNzVlOTZiYjkiLCJ0IjoiNjU1ODcxYzUtYTc2MC00NTQzLWEzN2ItMzY5NjliYzQ0ZThlIiwicyI6IlltWmlOVGcyTjJVdFpHRXhOUzAwTkRVekxUbGxaREV0T1RCak56UXdObVptWVRSayJ9
-
+            sudo cloudflared service install eyJhIjoiMWE1MTc4MTE0YTZjOWZmNDllMzZiNmMxNzVlOTZiYjkiLCJ0IjoiMjYzOTZhNWMtYmMzOC00NjZlLThiMDgtMDNjZWM4Njg5ODFmIiwicyI6IlltTmhNRGs1WTJZdE5EaGhaQzAwTVRRNUxUZ3hOVGd0Tm1GaE16ZzBZemxqTkdZMiJ9
       - run:
-          name: Wings Configuration
+          name: Build Docker image
           command: |
-            cd /etc/pterodactyl
-            sudo wings configure --panel-url https://panel.astralaxis.one --token ptla_ow7tyaIqnPooG1uX2mcVf0aVAkQUdOl1qLzF6wxJE1P --node 14
-            sudo -u root dockerd --host=unix:///var/run/docker.sock
-
+            echo "Building Docker image..."
+            docker build -t hlohaus789/g4f:latest .
       - run:
-          name: Get IP Address
+          name: Run container
           command: |
-            hostname -I | awk '{print $1}'
-            dig +short myip.opendns.com @resolver1.opendns.com
-      
-
-      - run:
-          name: Start Wings
-          command: sudo wings --debug
+            echo "Running container..."
+            docker run \
+              -p 8080:8080 \
+              -p 1337:1337 \
+              -p 7900:7900 \
+              --shm-size="2g" \
+              -v ${PWD}/har_and_cookies:/app/har_and_cookies \
+              -v ${PWD}/generated_images:/app/generated_images \
+              hlohaus789/g4f:latest
+      - store_artifacts:
+          path: .
+          destination: artifacts
 
 workflows:
   version: 2
-  build:
+  build-and-run:
     jobs:
-      - build
+      - build-and-run:
+          filters:
+            branches:
+              only: main
