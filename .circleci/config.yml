@@ -24,7 +24,6 @@ jobs:
           command: |
             sudo apt update
             sudo apt install -y neofetch dnsutils iptables util-linux uidmap
-            sudo depmod -a
 
       - run:
           name: Neofetch
