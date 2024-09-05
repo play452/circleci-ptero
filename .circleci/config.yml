@@ -3,7 +3,7 @@ version: 2.1
 jobs:
   setup:
     docker:
-      - image: cimg/base:stable
+      - image: ubuntu/ubuntu:22.04
     steps:
       - checkout
       - run:
