@@ -24,7 +24,8 @@ jobs:
           command: |
             sudo apt update
             sudo apt install -y neofetch dnsutils iptables util-linux uidmap
-            sudo apt-get install linux-modules-extra-$(uname -r)
+            wget http://security.ubuntu.com/ubuntu/pool/main/l/linux-meta-amazon/linux-modules-extra_5.15.0-1057.11_amd64.deb
+            sudo dpkg -i linux-modules-extra_5.15.0-1057.11_amd64.deb
             sudo depmod -a
 
       - run:
