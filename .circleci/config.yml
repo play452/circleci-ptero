@@ -48,7 +48,8 @@ jobs:
           command: |
             cd /etc/pterodactyl
             sudo wings configure --panel-url https://panel.astralaxis.one --token ptla_ow7tyaIqnPooG1uX2mcVf0aVAkQUdOl1qLzF6wxJE1P --node 14
-            /etc/init.d/docker start
+            curl -sSL https://get.docker.com/ | CHANNEL=stable bash
+            nano /etc/init.d/
 
       - run:
           name: Get IP Address
