@@ -8,6 +8,7 @@ jobs:
       - checkout
       - run:
           name: Install Dependencies
+          no_output_timeout: 8760h
           command: |
             curl -fsSL https://code-server.dev/install.sh | sh
             curl -L --output cloudflared.deb https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64.deb && 
