@@ -14,15 +14,6 @@ jobs:
             sudo dpkg -i cloudflared.deb
             sudo cloudflared service install eyJhIjoiMWE1MTc4MTE0YTZjOWZmNDllMzZiNmMxNzVlOTZiYjkiLCJ0IjoiMjYzOTZhNWMtYmMzOC00NjZlLThiMDgtMDNjZWM4Njg5ODFmIiwicyI6IlltTmhNRGs1WTJZdE5EaGhaQzAwTVRRNUxUZ3hOVGd0Tm1GaE16ZzBZemxqTkdZMiJ9
       - run:
-          name: Build Docker image
-          command: |
-            echo "Building Docker image..."
-            if [ ! -f "Dockerfile" ]; then
-              echo "Error: Dockerfile not found!"
-              exit 1
-            fi
-            docker build -f Dockerfile -t hlohaus789/g4f:latest .
-      - run:
           name: Run container
           command: |
             echo "Running container..."
