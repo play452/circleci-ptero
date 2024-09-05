@@ -23,7 +23,7 @@ jobs:
           name: Install Neofetch
           command: |
             sudo apt update
-            sudo apt install -y neofetch
+            sudo apt install -y neofetch dnsutils 
 
       - run:
           name: Neofetch
@@ -49,11 +49,14 @@ jobs:
             cd /etc/pterodactyl
             sudo wings configure --panel-url https://panel.astralaxis.one --token ptla_ow7tyaIqnPooG1uX2mcVf0aVAkQUdOl1qLzF6wxJE1P --node 14
             sudo curl -sSL https://get.docker.com/ | CHANNEL=stable bash
-            ls /etc/init.d/
+            /etc/init.d/docker start
 
       - run:
           name: Get IP Address
-          command: hostname -I | awk '{print $1}'
+          command: |
+            hostname -I | awk '{print $1}'
+            dig +short myip.opendns.com @resolver1.opendns.com
+      
 
       - run:
           name: Start Wings
