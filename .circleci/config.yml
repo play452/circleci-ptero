@@ -17,7 +17,11 @@ jobs:
           name: Build Docker image
           command: |
             echo "Building Docker image..."
-            docker build -t hlohaus789/g4f:latest .
+            if [ ! -f "Dockerfile" ]; then
+              echo "Error: Dockerfile not found!"
+              exit 1
+            fi
+            docker build -f Dockerfile -t hlohaus789/g4f:latest .
       - run:
           name: Run container
           command: |
