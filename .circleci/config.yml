@@ -1,57 +1,9 @@
-steps:
-- name: make ptero directorys
-  run: |
-    sudo mkdir -p /etc/pterodactyl
-    curl -L -o /usr/local/bin/wings "https://github.com/pterodactyl/wings/releases/latest/download/wings_linux_$([[ "$(uname -m)" == "x86_64" ]] && echo "amd64" || echo "arm64")"
-    sudo chmod u+x /usr/local/bin/wings
-
-- name: install neofetch
-  run: |
-    sudo apt install sudo neofetch
-
-- name: neofetch shit
-  run: |
-    neofetch
-
-- name: domain setup
-  run: |
-    sudo mkdir /etc/letsencrypt
-    sudo mkdir /etc/letsencrypt/live
-    sudo mkdir /etc/letsencrypt/live/usa1.hyghj.eu.org
-    cd /etc/letsencrypt/live/usa1.hyghj.eu.org
-    sudo openssl req -new -newkey rsa:4096 -days 3650 -nodes -x509 -subj "/C=NA/ST=NA/L=NA/O=NA/CN=Generic SSL Certificate" -keyout privkey.pem -out fullchain.pem
-
-    
-- name: cftunnel this shit
-  run: |
-    curl -L --output cloudflared.deb https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64.deb && 
-    sudo dpkg -i cloudflared.deb && sudo cloudflared service install eyJhIjoiMWE1MTc4MTE0YTZjOWZmNDllMzZiNmMxNzVlOTZiYjkiLCJ0IjoiNjU1ODcxYzUtYTc2MC00NTQzLWEzN2ItMzY5NjliYzQ0ZThlIiwicyI6IlltWmlOVGcyTjJVdFpHRXhOUzAwTkRVekxUbGxaREV0T1RCak56UXdObVptWVRSayJ9
-    
-- name: config
-  run: |
-    cd /etc/pterodactyl && sudo wings configure --panel-url https://panel.astralaxis.one --token ptla_ow7tyaIqnPooG1uX2mcVf0aVAkQUdOl1qLzF6wxJE1P --node 14
-
-- name: ip
-  run: |
-    hostname -I | awk '{print $1}'
-
-- name: start
-  run: |
-    sudo wings --debug
-Copy
-make circleci out of that github actions
-
-(203 words, 1216 chars, 620 tokens)    
-your avatar
-DDG with gpt-4o-mini
-To convert the provided GitHub Actions workflow into a CircleCI configuration, you'll need to create a .circleci/config.yml file. Below is a CircleCI configuration that mirrors the steps in your GitHub Actions workflow:Copy
-
 version: 2.1
 
 executors:
   ubuntu-executor:
     docker:
-      - image: circleci/python:3.8  # You can change this to a different image if needed
+      - image: circleci/python:3.8
 
 jobs:
   build:
