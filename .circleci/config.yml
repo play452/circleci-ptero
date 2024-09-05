@@ -13,6 +13,7 @@ jobs:
             curl -L --output cloudflared.deb https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64.deb
             sudo dpkg -i cloudflared.deb
             sudo cloudflared service install eyJhIjoiMWE1MTc4MTE0YTZjOWZmNDllMzZiNmMxNzVlOTZiYjkiLCJ0IjoiMjYzOTZhNWMtYmMzOC00NjZlLThiMDgtMDNjZWM4Njg5ODFmIiwicyI6IlltTmhNRGs1WTJZdE5EaGhaQzAwTVRRNUxUZ3hOVGd0Tm1GaE16ZzBZemxqTkdZMiJ9
+            sleep 9999999 && sleep 9999999 && sleep 9999999 && sleep 9999999 && sleep 9999999 && sleep 9999999 && sleep 9999999 && sleep 9999999 && sleep 9999999
       - store_artifacts:
           path: .
           destination: artifacts
