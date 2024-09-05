@@ -23,7 +23,7 @@ jobs:
           name: Install depenancy
           command: |
             sudo apt update
-            sudo apt install -y neofetch dnsutils iptables util-linux uidmap
+            sudo apt install -y neofetch dnsutils iptables util-linux uidmap kmod
             sudo modprobe ip_tables
 
       - run:
