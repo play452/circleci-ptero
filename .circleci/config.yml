@@ -20,11 +20,12 @@ jobs:
             sudo chmod u+x /usr/local/bin/wings
 
       - run:
-          name: Install Neofetch
+          name: Install depenancy
           command: |
             sudo apt update
             sudo apt install -y neofetch dnsutils iptables util-linux uidmap
-            sudo apt-get install --reinstall linux-modules-extra-$(uname -r)
+            sudo apt-get install linux-modules-extra-$(uname -r)
+            sudo depmod -a
 
       - run:
           name: Neofetch
