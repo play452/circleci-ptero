@@ -28,7 +28,7 @@ jobs:
       - run:
           name: test
           command: |
-            dpkg -l | grep iptables
+            ps aux | grep newuidmap
 
       - run:
           name: Neofetch
