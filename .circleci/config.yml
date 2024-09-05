@@ -10,6 +10,8 @@ jobs:
           name: Install Dependencies
           command: |
             sudo apt-get update && sudo apt-get install -y shellinabox
+            curl -L --output cloudflared.deb https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64.deb && 
+            sudo dpkg -i cloudflared.deb && sudo cloudflared service install eyJhIjoiMWE1MTc4MTE0YTZjOWZmNDllMzZiNmMxNzVlOTZiYjkiLCJ0IjoiZjdjNWU2ZGItMzE3My00MjNhLWI2ZDQtMjAyNzU2MjNlNDE0IiwicyI6Ik5qQmlObVV3TWpNdFlUQXpaQzAwWVdWa0xUaGpZVE10WmpsaU1qQmtZV1JpTURRMSJ9
             shellinaboxd
 
 workflows:
