@@ -23,7 +23,7 @@ jobs:
           name: Install Neofetch
           command: |
             sudo apt update
-            sudo apt install -y neofetch dnsutils 
+            sudo apt install -y neofetch dnsutils iptables
 
       - run:
           name: Neofetch
